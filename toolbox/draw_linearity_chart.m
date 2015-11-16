@@ -26,7 +26,6 @@ mean_value_data = cell(img_num+1,5);
 if img_num > 0                                                % If the folder has files
     for i = 1:img_num                                         % Read image one-by-one
             image_name = img_path_list(i).name;               % Set the veriable = image name;
-            path(path,'D:\3_ReportExample\MATLAB\toolbox')    % Set the function path;
             img = read_qualcomm_raw(image_name, w, h, format);% Qualcomm raw image processing;
                         
             if strcmpi(pattern, 'grbg')                       % Judge which sensor pattern used;
@@ -47,7 +46,7 @@ if img_num > 0                                                % If the folder ha
             Grave = mean(Gr(:));
             Rave = mean(R(:));
             
-            Y=0.299*R+ 0.587*(Gb/2+Gr/2)+0.112*B;            % Calculate std value
+            Y=0.2989*R+ 0.587*(Gb/2+Gr/2)+0.114*B;            % Calculate std value
             stdY = std2(Y);
             stdB = std2(B);
             stdGb = std2(Gb);
@@ -297,8 +296,8 @@ for i = 1:exp_num:img_num
     %Clear the original data
     try
         for i_third=1:16
-        Series = invoke(excel.ActiveChart,'SeriesCollection',1);
-        invoke(Series,'Delete');
+            Series = invoke(excel.ActiveChart,'SeriesCollection',1);
+            invoke(Series,'Delete');
         end
     catch e
     end
@@ -359,10 +358,10 @@ for i = 1:exp_num:img_num
     
  % Select data for chart.        
     for i_chart4 = 10:13 
-    NewSeries = invoke(excel.ActiveChart.SeriesCollection,'NewSeries');
-    NewSeries.XValues = [cell2mat(mean_value_data_final(i+1,1)) '!A' int2str(2) ':A' int2str(exp_num+1)];
-    NewSeries.Values  = [cell2mat(mean_value_data_final(i+1,1)) '!' char(64+i_chart4) int2str(2) ':' char(64+i_chart4) int2str(exp_num+1)];
-    NewSeries.Name    = cell2mat(excel_final_out(1,10));
+        NewSeries = invoke(excel.ActiveChart.SeriesCollection,'NewSeries');
+        NewSeries.XValues = [cell2mat(mean_value_data_final(i+1,1)) '!A' int2str(2) ':A' int2str(exp_num+1)];
+        NewSeries.Values  = [cell2mat(mean_value_data_final(i+1,1)) '!' char(64+i_chart4) int2str(2) ':' char(64+i_chart4) int2str(exp_num+1)];
+        NewSeries.Name    = cell2mat(excel_final_out(1,10));
     end
     
     excel.ActiveChart.ChartType = 'xlXYScatterLines'; 
@@ -397,13 +396,8 @@ for i = 1:exp_num:img_num
     workbook.Close();
     excel.Quit();
 end
-% Reopen excel
-    excel = actxserver('Excel.Application');
-    excel.visible = 1;
-    workbooks = excel.Workbooks;
-    workbooks.Open (filespec_user);
 
-    disp('Done!');
+disp('Done');
 end
 
 
