@@ -5,6 +5,9 @@
 % *w: The width of the picture
 % *h: The height of the picture
 % *format: Support 'm10' or 'q10'
+%
+% Output
+% *ret: The w*h array of image data, in 16bit (only 10 bit is effective)
 
 function ret=read_qualcomm_raw(file, w, h, format)
     fp = fopen(file,'rb','b');
