@@ -4,7 +4,7 @@
 % *file: The name of the file (string)
 % *w: The width of the picture
 % *h: The height of the picture
-% *format: Only 'Q10' is supported yet
+% *format: Support 'm10' or 'q10'
 
 function ret=read_qualcomm_raw(file, w, h, format)
     fp = fopen(file,'rb','b');
